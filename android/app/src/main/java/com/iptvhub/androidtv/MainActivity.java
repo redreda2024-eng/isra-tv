@@ -1,9 +1,6 @@
 package com.iptvhub.androidtv;
 
-import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,21 +14,6 @@ public class MainActivity extends BridgeActivity {
     private static final long LONG_PRESS_MS = 700;
     private long backDownTime = 0;
     private boolean backPressed = false;
-
-    // Largeur "bureau" simulee (pixels CSS) : l'interface s'affiche comme sur Windows/web
-    // au lieu de passer en mise en page mobile sur l'ecran de la TV.
-    private static final float TARGET_CSS_WIDTH = 1600f;
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        DisplayMetrics dm = base.getResources().getDisplayMetrics();
-        int longSide = Math.max(dm.widthPixels, dm.heightPixels);
-        int dpi = Math.round(longSide * 160f / TARGET_CSS_WIDTH);
-        dpi = Math.max(120, Math.min(640, dpi));
-        Configuration config = new Configuration(base.getResources().getConfiguration());
-        config.densityDpi = dpi;
-        super.attachBaseContext(base.createConfigurationContext(config));
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
