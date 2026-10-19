@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Isra</string>
+    <string name="title_activity_main">Isra</string>
+    <string name="package_name">com.isra.tv</string>
+    <string name="custom_url_scheme">com.isra.tv</string>
+</resources>
