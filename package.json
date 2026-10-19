@@ -1,0 +1,72 @@
+{
+  "name": "isra",
+  "private": true,
+  "version": "1.28.3",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"npm:server\" \"npm:dev:vite\"",
+    "dev:vite": "vite",
+    "server": "node server/index.mjs",
+    "build": "node scripts/bump-version.mjs && tsc -b && vite build",
+    "desktop": "electron .",
+    "desktop:installer": "npm run build && electron-builder --win nsis",
+    "android:sync": "npm run build && cap sync android",
+    "android:apk": "npm run build && cap sync android && cd android && gradlew.bat assembleDebug",
+    "lint": "oxlint",
+    "preview": "node server/index.mjs"
+  },
+  "dependencies": {
+    "@capacitor/android": "latest",
+    "@capacitor/core": "latest",
+    "express": "^5.3.0",
+    "hls.js": "^1.7.3",
+    "lucide-react": "^1.56.0",
+    "mpegts.js": "^1.8.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.4",
+    "undici": "^8.12.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "latest",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^10.0.6",
+    "electron": "latest",
+    "electron-builder": "latest",
+    "oxlint": "^1.81.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
+  },
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "com.iptvhub.desktop",
+    "productName": "IPTV Hub",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "server/**/*",
+      "electron/**/*",
+      "package.json",
+      "!node_modules/@capacitor/android/**"
+    ],
+    "asarUnpack": [
+      "server/**/*",
+      "dist/**/*",
+      "node_modules/**/*",
+      "!node_modules/@capacitor/android/**"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/iptv-hub.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
